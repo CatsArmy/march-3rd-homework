@@ -113,13 +113,113 @@ if (selector == 2)
 }
 if (selector == 3)
 {
-
+    Random random = new Random();
+    int[] arr1 = new int[10];
+    int[] arr2 = new int[10];
+    for (int i = 0; i < arr2.Length; i++)
+    {
+        arr1[i] = random.Next(1, 20);
+        arr2[i] = random.Next(1, 20);
+    }
+    int[] arr3 = SortedMerge(arr1 , arr2);
+    for (int i = 0;i < arr3.Length; i++)
+    {
+        Console.Write($"{arr3[i]} ,");
+    }
+    Console.WriteLine(" }\n");
+    for (int i = 0; i < arr2.Length; i++)
+    {
+        Console.Write($"{arr2[i]} ,");
+    }
+    Console.WriteLine(" }\n");
+    for (int i = 0; i < arr1.Length; i++)
+    {
+        Console.Write($"{arr1[i]} ,");
+    }
+    Console.WriteLine(" }\n");
+    int[] maxSortArr(int[] arr1, int[] arr2)
+    {
+        return ;
+    }
+    int indexCounter = arr4.Length;
+    for (int i = arr3.Length - 1; i >= 0; i--)
+    {
+        if (arr3[i] == arr3[i-1])
+        {
+            i--;
+        }
+        else
+        {
+            arr4[indexCounter-1]= arr3[i];
+        }
+        indexCounter--;
+    }
 }
 if (selector == 4)
 {
 
 }
-
+static int[] SortedMerge(int[] arr1, int[] arr2)
+{
+    bool debug = false;
+    int mLength = arr1.Length + arr2.Length;
+    int[] mergedArr = new int[mLength];
+    int arr1I = 0;
+    int arr2I = 0;
+    for (int i = 0; i < mLength; i++)
+    {
+        if (arr1I == arr1.Length)
+        {
+            mergedArr[i] = arr2[arr2I];
+            arr2I++;
+            if (debug)
+            {
+                Console.WriteLine("case1 arr1I == arr1.Length");
+                Console.WriteLine($"mArr[{i}] = {mergedArr[i]} \n arr1I = {arr1I} arr2I = {arr2I}");
+            }
+        }
+        else if (arr2I == arr2.Length)
+        {
+            mergedArr[i] = arr1[arr1I];
+            arr1I++;
+            if (debug)
+            {
+                Console.WriteLine("case2 arr2I == arr2.Length");
+                Console.WriteLine($"mArr[{i}] = {mergedArr[i]} \n arr1I = {arr1I} arr2I = {arr2I}");
+            }
+        }
+        else if (arr1[arr1I] > arr2[arr2I])
+        {
+            mergedArr[i] = arr2[arr2I];
+            arr2I++;
+            if (debug)
+            {
+                Console.WriteLine("case3 arr1[arr1I] > arr2[arr2I]");
+                Console.WriteLine($"mArr[{i}] = {mergedArr[i]} \n arr1I = {arr1I} arr2I = {arr2I}");
+            }
+        }
+        else
+        {
+            mergedArr[i] = arr1[arr1I];
+            arr1I++;
+            if (debug)
+            {
+                Console.WriteLine("case4 arr1[arr1I] < arr2[arr2I]");
+                Console.WriteLine($"mArr[{i}] = {mergedArr[i]} \n arr1I = {arr1I} arr2I = {arr2I}");
+            }
+        }
+    }
+    if (debug)
+    {
+        Console.Write("mergedArr = ");
+        for (int i = 0; i < mergedArr.Length; i++)
+        {
+            Console.Write($"{mergedArr[i]}, ");
+        }
+    }
+    return BubbleSort(mergedArr);
+}
+//using BubbleSort
 static int[] BubbleSort(int[] bubble)
 {
     int TempSort;
@@ -139,3 +239,4 @@ static int[] BubbleSort(int[] bubble)
     }
     return bubble;
 }
+
