@@ -1,4 +1,6 @@
-﻿Console.WriteLine("select question 1-4");
+﻿using System;
+
+Console.WriteLine("select question 1-4");
 int selector = int.Parse(Console.ReadLine());
 if (selector == 1)
 {
@@ -116,48 +118,136 @@ if (selector == 3)
     Random random = new Random();
     int[] arr1 = new int[10];
     int[] arr2 = new int[10];
+    int[] topTenFromArray = new int[10];
+
     for (int i = 0; i < arr2.Length; i++)
     {
-        arr1[i] = random.Next(1, 20);
-        arr2[i] = random.Next(1, 20);
+        arr1[i] = random.Next(1, 30);
+        arr2[i] = random.Next(1, 30);
     }
-    int[] arr3 = SortedMerge(arr1 , arr2);
-    for (int i = 0;i < arr3.Length; i++)
+    int[] arrM = SortedMerge(arr1, arr2);
+    for (int i = 0; i < arrM.Length; i++)
     {
-        Console.Write($"{arr3[i]} ,");
+        Console.Write($"{arrM[i]} ,");
     }
-    Console.WriteLine(" }\n");
+    Console.WriteLine(" \n");
     for (int i = 0; i < arr2.Length; i++)
     {
         Console.Write($"{arr2[i]} ,");
     }
-    Console.WriteLine(" }\n");
+    Console.WriteLine(" \n");
     for (int i = 0; i < arr1.Length; i++)
     {
         Console.Write($"{arr1[i]} ,");
     }
-    Console.WriteLine(" }\n");
-    int[] maxSortArr(int[] arr1, int[] arr2)
+    Console.WriteLine(" \n");
+    topTenFromArray = max10SortArr(arrM);
+    for (int i = 0; i < topTenFromArray.Length; i++)
     {
-        return ;
+        Console.Write($"{topTenFromArray[i]} ,");
     }
-    int indexCounter = arr4.Length;
-    for (int i = arr3.Length - 1; i >= 0; i--)
+
+    
+
+    int[] max10SortArr(int[] arr)
     {
-        if (arr3[i] == arr3[i-1])
-        {
-            i--;
+        int[] resultArr = new int[10];
+        int indexCounter = resultArr.Length - 1;
+        //go thru all the elements of the merged array
+        for (int i = arr.Length - 1; i > 0; i--)
+        {   //if the values of arrM match arrM-1 we can skip them
+
+            if (arr[i] == arr[i - 1])
+            {
+                i--;
+            }
+            else
+            {
+                resultArr[indexCounter] = arr[i];
+                if (indexCounter == 0)
+                {
+                    i = 0;
+                }
+                else
+                {
+                 indexCounter--;
+                }
+            }
+
         }
-        else
-        {
-            arr4[indexCounter-1]= arr3[i];
-        }
-        indexCounter--;
-    }
+        return resultArr;
+    }    
 }
 if (selector == 4)
 {
+    Random rand = new Random();
+    int[] arr1 = new int[10];
+    for (int i = 0; i < arr1.Length; i++)
+    {
+        arr1[i] = rand.Next(1,20000);
+    }
 
+    int maxFirstNumIndex = FindMaxFirstDigitIndex(arr1);
+    int maxFirstNum = FindMaxFirstDigit(arr1);
+    Console.WriteLine("array:");
+    for (int i = 0; i < arr1.Length; i++)
+    {
+        Console.WriteLine($"array[{i}] = {arr1[i]}");
+    }
+        Console.WriteLine($"Max First Num Index = {maxFirstNumIndex}");
+        Console.WriteLine($"Max First Num = {maxFirstNum}");
+    static int FindMaxFirstDigit(int[] arr)
+    {
+        for (int i = 0; i < arr.Length; i++)
+        {
+            if (arr[i] < 0)
+            {
+                Console.WriteLine("Error Input A Valid Array");
+                break;//o no i broke it
+            }
+        }
+        int maxFirstDigit = 0;
+        for (int i = 0; i < arr.Length; i++)
+        {
+            if (maxFirstDigit < GetFirstDigit(arr[i]))
+            {
+                maxFirstDigit = GetFirstDigit(arr[i]);
+            }
+        }
+        return maxFirstDigit;
+    }
+    static int FindMaxFirstDigitIndex(int[] arr)
+    {
+        for (int i = 0; i < arr.Length; i++)
+        {
+            if (arr[i] < 0)
+            {
+                Console.WriteLine("Error Input A Valid Array");
+                break;//o no i broke it
+            }
+        }
+        int maxFirstDigit = 0;
+        int saveIndex = 0;
+        for (int i = 0; i < arr.Length; i++)
+        {
+            if (maxFirstDigit < GetFirstDigit(arr[i]))
+            {
+                maxFirstDigit = GetFirstDigit(arr[i]);
+                saveIndex = i;
+            }
+        }
+        return saveIndex;
+    }
+    static int GetFirstDigit(int arr)
+    {
+        int num;
+        num = arr;
+        while (num % 10 == 0)
+        {
+            num /= 10;
+        }
+        return num;
+    }
 }
 static int[] SortedMerge(int[] arr1, int[] arr2)
 {
@@ -239,4 +329,3 @@ static int[] BubbleSort(int[] bubble)
     }
     return bubble;
 }
-
